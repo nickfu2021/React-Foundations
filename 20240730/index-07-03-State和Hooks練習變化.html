@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>index-07-03-State和Hooks練習變化</title>
+        <!-- 學習 React 三大重點 Components, Prop, State -->
+    </head>
+    <body>
+        <div id="app"></div>
+        <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+        <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+        <!-- Babel Script -->
+        <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+        <script type="text/jsx">
+            const app = document.getElementById('app');
+            const names = ['Java','C#','React','Javascript','TypeScript'];
+
+            function Header({title}) {
+                return(<h1>{title ? title : 'Default title'}</h1>)
+            }
+
+            function Button ({onClick, children}) {
+                return (
+                    <button onClick={onClick}>{children}</button>
+                )
+            }
+
+            function Toolbar() {
+                const [likes, setLikes] = React.useState(0);
+
+                function handleClick() {
+                    setLikes(likes + 1);
+                }
+
+                function handleRestart() {
+                    setLikes(0);
+                }
+
+                return (
+                    <div>
+                        <Button onClick={handleClick}>Likes({likes})</Button>
+                        <Button onClick={handleRestart}>Restart</Button>
+                    </div>
+                )
+            }
+
+            function HomePage() {
+
+                return (
+                    <div>
+                        {/* 嵌套組件 */}
+                        <Header />
+                        <ul>
+                            {
+                                names.map((name) => (
+                                    <li key={name} >{name}</li>
+                                ))
+                            }
+                        </ul>
+                        <Toolbar />
+                    </div>
+                )
+            }
+
+            const root = ReactDOM.createRoot(app);
+            root.render(<HomePage />);
+        </script>
+    </body>
+</html>
